@@ -18,10 +18,10 @@ services:
       - PORT=3000
       - ROOT_URL=http://192.168.0.212:3000
       - MONGO_URL=mongodb://mongo:27017/rocketchat
-      - MONGO_OPLOG_URL=mongodb://mongo:27017/local
+      - MONGO_OPLOG_URL=mongodb://mongo:27017/192.168.0.212
       - ADMIN_USERNAME=rocket
       - ADMIN_PASS=PZxs7wsHWEJLP98z
-      - ADMIN_EMAIL=admin@rocketchat.local
+      - ADMIN_EMAIL=admin@rocketchat.192.168.0.212
     depends_on:
       - mongo
     ports:
@@ -43,7 +43,7 @@ services:
           mongo mongo/rocketchat --eval \"
             rs.initiate({
               _id: 'rs0',
-              members: [ { _id: 0, host: 'localhost:27017' } ]})\" &&
+              members: [ { _id: 0, host: '192.168.0.212:27017' } ]})\" &&
           s=$$? && break || s=$$?;
           echo \"Tried $$i times. Waiting 5 secs...\";
           sleep 5;
